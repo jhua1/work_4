@@ -111,19 +111,15 @@ void parse_file ( char * filename,
     if(strcmp(line,"rotate") == 0){
       fgets(line,255,f);
       line[strlen(line)-1] = '\0';
-      char **arr;
-      int c=0;
+      char *axis;
       char *holder = line;
-      while (c < 2){
-	arr[c] = strsep(&holder," ");
-	c++;	
-      }
-      if(strcmp(arr[0],"x") == 0)
-	transform = make_rotX(atoi(arr[1]));
-      if(strcmp(arr[0],"y") == 0)
-	transform = make_rotY(atoi(arr[1]));
-      if(strcmp(arr[0],"z") == 0)
-	transform = make_rotZ(atoi(arr[1]));
+      axis = strsep(&holder," ");
+      if(strcmp(axis,"x") == 0)
+	transform = make_rotX(atoi(strsep(&holder," ")));
+      if(strcmp(axis,"y") == 0)
+	transform = make_rotY(atoi(strsep(&holder," ")));
+      if(strcmp(axis,"z") == 0)
+	transform = make_rotZ(atoi(strsep(&holder," ")));
     }
     if(strcmp(line,"apply") == 0)
       matrix_mult(transform,edges);
