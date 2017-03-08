@@ -69,6 +69,24 @@ void parse_file ( char * filename,
   while ( fgets(line, 255, f) != NULL ) {
     line[strlen(line)-1]='\0';
     printf(":%s:\n",line);
+    
+    if(strcmp(line,"line") == 0){
+      fgets(line,255,f);
+      line[strlen(line)-1] = '\0';
+      int arr[6];
+      int c=0;
+      char *holder = line;
+      while (c < 6){
+	arr[c] = atoi( strsep(&holder," "));
+	c++;
+      }
+      add_edge(edges,arr[0],arr[1],arr[2],arr[3],arr[4],arr[5]);
+    }
+    if(strcmp(line,"ident") == 0)
+      ident(transform);
+    if(strcmp(line,"apply") == 0)
+      matrix_mult(transform,edges);
+    
   }
 }
   
