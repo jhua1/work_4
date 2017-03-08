@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
   if ( argc == 2 )
     parse_file( argv[1], transform, edges, s );
   else
-    parse_file( "stdin", transform, edges, s );
+    parse_file( "script", transform, edges, s );
 
   
   free_matrix( edges );

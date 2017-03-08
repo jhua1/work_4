@@ -84,9 +84,68 @@ void parse_file ( char * filename,
     }
     if(strcmp(line,"ident") == 0)
       ident(transform);
+    if(strcmp(line,"scale") == 0){
+      fgets(line,255,f);
+      line[strlen(line)-1] = '\0';
+      int arr[3];
+      int c=0;
+      char *holder = line;
+      while (c < 3){
+	arr[c] = atoi( strsep(&holder," "));
+	c++;
+      }
+      transform = make_scale( arr[0],arr[1],arr[2]);
+    }
+    if(strcmp(line,"move") == 0){
+      fgets(line,255,f);
+      line[strlen(line)-1] = '\0';
+      int arr[3];
+      int c=0;
+      char *holder = line;
+      while (c < 3){
+	arr[c] = atoi( strsep(&holder," "));
+	c++;
+      }
+      transform = make_translate(arr[0],arr[1],arr[2]);
+    }
+    if(strcmp(line,"rotate") == 0){
+      fgets(line,255,f);
+      line[strlen(line)-1] = '\0';
+      char **arr;
+      int c=0;
+      char *holder = line;
+      while (c < 2){
+	arr[c] = strsep(&holder," ");
+	c++;	
+      }
+      if(strcmp(arr[0],"x") == 0)
+	transform = make_rotX(atoi(arr[1]));
+      if(strcmp(arr[0],"y") == 0)
+	transform = make_rotY(atoi(arr[1]));
+      if(strcmp(arr[0],"z") == 0)
+	transform = make_rotZ(atoi(arr[1]));
+    }
     if(strcmp(line,"apply") == 0)
       matrix_mult(transform,edges);
-    
+    if(strcmp(line,"display") == 0){
+      color c;
+      c.red = 34;
+      c.green = 245;
+      c.blue = 167;
+      clear_screen(s);
+      draw_lines(edges,s,c);
+      display(s);
+    }
+    if(strcmp(line,"save") == 0){
+      color c;
+      c.red = 34;
+      c.green = 245;
+      c.blue = 167;
+      clear_screen(s);
+      draw_lines(edges,s,c);
+      fgets(line,255,f);
+      char* holder = line;
+      save_extension(s,holder);
+    }
   }
 }
-  

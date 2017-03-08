@@ -66,6 +66,7 @@ struct matrix * make_rotX(double theta) {
   rad = theta * M_PI /180;
   struct matrix * tmp;
   tmp = new_matrix(4,4);
+  tmp->lastcol = 3;
   int r,c;
   for(r = 0; r < tmp->rows; r++){
     for( c = 0; c < tmp->cols; c++){
@@ -92,6 +93,7 @@ struct matrix * make_rotY(double theta) {
   rad = theta * M_PI /180;
   struct matrix * tmp;
   tmp = new_matrix(4,4);
+  tmp->lastcol = 3;
   int r,c;
   for(r = 0; r < tmp->rows; r++){
     for( c = 0; c < tmp->cols; c++){
@@ -118,6 +120,7 @@ struct matrix * make_rotZ(double theta) {
   rad = theta * M_PI /180;
   struct matrix * tmp;
   tmp = new_matrix(4,4);
+  tmp->lastcol = 3;
   int r,c;
   for(r = 0; r < tmp->rows; r++){
     for( c = 0; c < tmp->cols; c++){
