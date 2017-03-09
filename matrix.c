@@ -103,8 +103,8 @@ struct matrix * make_rotY(double theta) {
   tmp->m[3][3] = 1;
   tmp->m[1][1] = 1;
   tmp->m[0][0] = cos(rad);
-  tmp->m[0][2] = -1*sin(rad);
-  tmp->m[2][0] = sin(rad);
+  tmp->m[2][0] = -1*sin(rad);
+  tmp->m[0][2] = sin(rad);
   tmp->m[2][2] = cos(rad);
   return tmp;
 }

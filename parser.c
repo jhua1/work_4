@@ -94,7 +94,7 @@ void parse_file ( char * filename,
 	arr[c] = atoi( strsep(&holder," "));
 	c++;
       }
-      transform = make_scale( arr[0],arr[1],arr[2]);
+      matrix_mult( make_scale( arr[0],arr[1],arr[2]),transform);
     }
     if(strcmp(line,"move") == 0){
       fgets(line,255,f);
@@ -106,7 +106,7 @@ void parse_file ( char * filename,
 	arr[c] = atoi( strsep(&holder," "));
 	c++;
       }
-      transform = make_translate(arr[0],arr[1],arr[2]);
+      matrix_mult(make_translate(arr[0],arr[1],arr[2]),transform);
     }
     if(strcmp(line,"rotate") == 0){
       fgets(line,255,f);
@@ -115,11 +115,11 @@ void parse_file ( char * filename,
       char *holder = line;
       axis = strsep(&holder," ");
       if(strcmp(axis,"x") == 0)
-	transform = make_rotX(atoi(strsep(&holder," ")));
+	matrix_mult(make_rotX(atoi(strsep(&holder," "))),transform);
       if(strcmp(axis,"y") == 0)
-	transform = make_rotY(atoi(strsep(&holder," ")));
+	matrix_mult(make_rotY(atoi(strsep(&holder," "))),transform);
       if(strcmp(axis,"z") == 0)
-	transform = make_rotZ(atoi(strsep(&holder," ")));
+	matrix_mult(make_rotZ(atoi(strsep(&holder," "))),transform);
     }
     if(strcmp(line,"apply") == 0)
       matrix_mult(transform,edges);
@@ -143,5 +143,9 @@ void parse_file ( char * filename,
       char* holder = line;
       save_extension(s,holder);
     }
+    printf("Printing Edge Matrix:\n");
+    print_matrix(edges);
+    printf("Printing Transformation Matrix:\n");
+    print_matrix(transform);
   }
 }
